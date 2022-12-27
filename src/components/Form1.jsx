@@ -3,7 +3,7 @@ import { Button, Form, Input, InputNumber, Tabs } from 'antd';
 
 const Form1 = () => {
   return (
-    <Form name="userForm" layout='horizonal' colon={false}
+    <Form name="userForm" layout='horizonal' colon={false} labelAlign="left" 
     labelCol={{
       span: 4,
     }}
@@ -23,7 +23,7 @@ const Form1 = () => {
         ]}>
       <Input name="name" />
       </Form.Item>
-      <Form.Item label="Age" name="age"
+      <Form.Item label="Age" name="age" requiredMark="optional" validateFirst={true}
       rules={[
         {
           type: 'integer',
@@ -31,6 +31,12 @@ const Form1 = () => {
           max: 200,
           message: 'Please input a valid age.',
         },
+        {
+          type: 'integer',
+          min: 5,
+          max: 200,
+          message: 'Age needs to be 5 or older.',
+        }
       ]}>
       <InputNumber age="age" />
       </Form.Item>
