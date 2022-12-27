@@ -40,9 +40,15 @@ const Form1 = () => {
           max: 200,
           message: 'Please input a valid age.',
         },
-        {
-          validator: (_, value) => isTooYoung(value)
-        }
+        () => ({
+          validator(_, value) {
+            return isTooYoung(value);
+          },
+        })
+        // {
+        //   validator: (_, value) => isTooYoung(value)
+        // }
+        /////////
       //   {
       //     type: 'integer',
       //     min: 5,
