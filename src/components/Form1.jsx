@@ -2,6 +2,15 @@ import React from 'react'
 import { Button, Form, Input, InputNumber, Tabs } from 'antd';
 
 const Form1 = () => {
+
+  const isTooYoung = (value) => {
+    console.log(`Validate ${value}`);
+    if (value < 5) {
+      return Promise.reject('Age needs to be 5 or older.');
+    }
+    return Promise.resolve();
+  };
+
   return (
     <Form name="userForm" layout='horizonal' colon={false} labelAlign="left" 
     labelCol={{
@@ -23,7 +32,7 @@ const Form1 = () => {
         ]}>
       <Input name="name" />
       </Form.Item>
-      <Form.Item label="Age" name="age" requiredMark="optional" validateFirst={true}
+      <Form.Item label="Age" name="age" requiredMark="optional" validateFirst={true} validateTrigger="onBlur" 
       rules={[
         {
           type: 'integer',
@@ -32,11 +41,14 @@ const Form1 = () => {
           message: 'Please input a valid age.',
         },
         {
-          type: 'integer',
-          min: 5,
-          max: 200,
-          message: 'Age needs to be 5 or older.',
+          validator: (_, value) => isTooYoung(value)
         }
+      //   {
+      //     type: 'integer',
+      //     min: 5,
+      //     max: 200,
+      //     message: 'Age needs to be 5 or older.',
+      //   }
       ]}>
       <InputNumber age="age" />
       </Form.Item>
