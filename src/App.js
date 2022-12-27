@@ -1,23 +1,40 @@
 import logo from './logo.svg';
 import './App.css';
+import { Button, Form, Input, Tabs } from 'antd';
+import 'antd/dist/reset.css';
+import Form1 from './components/Form1';
+
 
 function App() {
+
+  const onChange = (key) => {
+    console.log(key);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Tabs
+    defaultActiveKey="1"
+    onChange={onChange}
+    items={[
+      {
+        label: `Tab 1`,
+        key: '1',
+        children: <Form1/>,
+      },
+      {
+        label: `Tab 2`,
+        key: '2',
+        children: `Content of Tab Pane 2`,
+      },
+      {
+        label: `Tab 3`,
+        key: '3',
+        children: `Content of Tab Pane 3`,
+      },
+    ]}
+  />
+     
     </div>
   );
 }
