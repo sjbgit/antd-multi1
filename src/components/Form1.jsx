@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Input, Tabs } from 'antd';
+import { Button, Form, Input, InputNumber, Tabs } from 'antd';
 
 const Form1 = () => {
   return (
@@ -10,11 +10,29 @@ const Form1 = () => {
     wrapperCol={{
       span: 16,
     }} >
-      <Form.Item label="Name" name="name">
+      <Form.Item label="Name" name="name" 
+      rules={[
+          {
+            required: true,
+            message: 'The name is required.',
+          },
+          {
+            pattern: /^[a-zA-Z0-9]+$/,
+            message: 'Name can only include letters and numbers.',
+          },
+        ]}>
       <Input name="name" />
       </Form.Item>
-      <Form.Item label="Age" name="age">
-      <Input age="age" />
+      <Form.Item label="Age" name="age"
+      rules={[
+        {
+          type: 'integer',
+          min: 0,
+          max: 200,
+          message: 'Please input a valid age.',
+        },
+      ]}>
+      <InputNumber age="age" />
       </Form.Item>
       <Form.Item wrapperCol={{
           offset: 4,
