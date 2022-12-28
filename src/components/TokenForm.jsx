@@ -30,7 +30,7 @@ const TokenForm = () => {
     <>
     <Title>Enter Credentials</Title>
     <Divider/>
-    <Form onFinish={onFinish} name="userForm" layout='horizonal' colon={true} form={form}
+    <Form onFinish={onFinish} name="tokenForm" layout='horizonal' colon={true} form={form}
     labelCol={{
       span: 4,
     }}
@@ -92,14 +92,14 @@ const TokenForm = () => {
             message: 'The cliend secret is required.',
           }
         ]}>
-      <Input name="clientsecret" />
+      <Input.Password name="clientsecret" />
       </Form.Item>
       
       <Form.Item wrapperCol={{
           offset: 4,
           span: 16,
         }}>
-      <Button htmlType="submit">Submit</Button>
+      <Button type="primary" htmlType="submit">Submit</Button>
       </Form.Item>
     </Form>
     </>
