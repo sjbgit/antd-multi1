@@ -3,6 +3,7 @@ import './App.css';
 import { Button, Form, Input, Tabs } from 'antd';
 import 'antd/dist/reset.css';
 import Form1 from './components/Form1';
+import TokenForm from './components/TokenForm';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
       {
         label: `Tab 2`,
         key: '2',
-        children: `Content of Tab Pane 2`,
+        children: <TokenForm/>,
       },
       {
         label: `Tab 3`,

@@ -3,6 +3,12 @@ import { Button, Form, Input, InputNumber, Tabs } from 'antd';
 
 const Form1 = () => {
 
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
+
   const isTooYoung = (value) => {
     console.log(`Validate ${value}`);
     if (value < 5) {
@@ -12,13 +18,18 @@ const Form1 = () => {
   };
 
   return (
-    <Form name="userForm" layout='horizonal' colon={false} labelAlign="left" 
+    <Form onFinish={onFinish} name="userForm" layout='horizonal' colon={false} labelAlign="left" form={form}
     labelCol={{
       span: 4,
     }}
     wrapperCol={{
       span: 16,
-    }} >
+    }} 
+    initialValues={{
+      name: 'John1',
+      age: 8,
+    }}
+    >
       <Form.Item label="Name" name="name" 
       rules={[
           {
@@ -67,7 +78,9 @@ const Form1 = () => {
       </Form.Item>
       
       {/* <Button type="primary">Button</Button> */}
+      {/* <Button onClick={() => form.setFieldsValue({ age: 7 })}>Set Age</Button> */}
     </Form>
+    
   )
 }
 
