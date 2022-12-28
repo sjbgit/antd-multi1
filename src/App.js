@@ -24,7 +24,7 @@ function App() {
         children: <Form1/>,
       },
       {
-        label: `Tab 2`,
+        label: `Generate Token`,
         key: '2',
         children: <TokenForm/>,
       },

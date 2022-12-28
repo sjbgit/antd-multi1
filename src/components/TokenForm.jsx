@@ -1,12 +1,13 @@
 import React from 'react'
-import { Button, Form, Input, InputNumber, Tabs, Divider, Select } from 'antd';
+import { Button, Form, Input, InputNumber, Tabs, Divider, Select, message } from 'antd';
 
 import { Typography } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 const { Title } = Typography;
 const { Option } = Select;
 
-const callApi = ({ username, password, scope, client_id, client_secret, url }) => {
+const callApi = ({ username, password, scope, client_id, client_secret, url, success, error }) => {
     var headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -27,17 +28,38 @@ const callApi = ({ username, password, scope, client_id, client_secret, url }) =
     
     fetch(url, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(result => { 
+          console.log(result);
+          success();
+        })
+        .catch(err => {
+          console.log('error', err);
+          error(); 
+        });
 }
 
 const TokenForm = () => {
 
+  const [messageApi, contextHolder] = message.useMessage();
     const [form] = Form.useForm();
+
+    const success = () => {
+      messageApi.open({
+        type: 'success',
+        content: 'This is a success message',
+      });
+    };
+
+    const error = () => {
+      messageApi.open({
+        type: 'error',
+        content: 'This is an error message',
+      })
+    };
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-    callApi(values);
+    callApi({...values, success, error});
   };
 
   const isTooYoung = (value) => {
@@ -54,6 +76,7 @@ const TokenForm = () => {
 
   return (
     <>
+    {contextHolder}
     <Title>Enter Credentials</Title>
     <Divider/>
     <Form onFinish={onFinish} name="tokenForm" layout='horizonal' colon={true} form={form}
@@ -134,6 +157,10 @@ const TokenForm = () => {
           span: 16,
         }}>
       <Button type="primary" htmlType="submit">Submit</Button>
+      </Form.Item>
+      <Divider/>
+      <Form.Item label="Token" name="token">
+        <TextArea name='token' rows={10}  disabled={true}/>
       </Form.Item>
     </Form>
     </>
