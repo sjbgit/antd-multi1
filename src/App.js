@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       <Tabs
-    defaultActiveKey="1"
+    defaultActiveKey="2"
     onChange={onChange}
     items={[
       {

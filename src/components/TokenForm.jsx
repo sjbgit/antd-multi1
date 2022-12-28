@@ -1,12 +1,14 @@
 import React from 'react'
-import { Button, Form, Input, InputNumber, Tabs, Divider } from 'antd';
+import { Button, Form, Input, InputNumber, Tabs, Divider, Select } from 'antd';
+
 import { Typography } from 'antd';
 
 const { Title } = Typography;
+const { Option } = Select;
 
-const callApi = ({ username, password, scope, client_id, client_secret }, url) => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+const callApi = ({ username, password, scope, client_id, client_secret, url }) => {
+    var headers = new Headers();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "password");
@@ -18,7 +20,7 @@ const callApi = ({ username, password, scope, client_id, client_secret }, url) =
 
     var requestOptions = {
         method: 'POST',
-        headers: myHeaders,
+        headers: headers,
         body: urlencoded,
         redirect: 'follow'
     };
@@ -35,6 +37,7 @@ const TokenForm = () => {
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    callApi(values);
   };
 
   const isTooYoung = (value) => {
@@ -61,9 +64,17 @@ const TokenForm = () => {
       span: 16,
     }} 
     initialValues={{
-        granttype: 'password'
+        granttype: 'password',
+        url: 'option1'
     }}
     >
+      <Form.Item label="URL" name="url">
+      <Select>
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+        </Select>
+      </Form.Item>
     <Form.Item label="Grant Type" name="granttype">
       <Input name="granttype" disabled={true} />
       </Form.Item>
@@ -98,24 +109,24 @@ const TokenForm = () => {
       <Input name="scope" />
       </Form.Item>
 
-      <Form.Item label="Client ID" name="clientid" 
+      <Form.Item label="Client ID" name="client_id" 
       rules={[
           {
             required: true,
             message: 'The client ID is required.',
           }
         ]}>
-      <Input name="clientid" />
+      <Input name="client_id" />
       </Form.Item>
 
-      <Form.Item label="Client Secret" name="clientsecret" 
+      <Form.Item label="Client Secret" name="client_secret" 
       rules={[
           {
             required: true,
-            message: 'The cliend secret is required.',
+            message: 'The client secret is required.',
           }
         ]}>
-      <Input.Password name="clientsecret" />
+      <Input.Password name="client_secret" />
       </Form.Item>
       
       <Form.Item wrapperCol={{
