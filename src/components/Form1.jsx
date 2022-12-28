@@ -42,6 +42,7 @@ const Form1 = () => {
         },
         () => ({
           validator(_, value) {
+            console.log(_) 
             return isTooYoung(value);
           },
         })
