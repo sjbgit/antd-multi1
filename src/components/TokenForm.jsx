@@ -4,7 +4,30 @@ import { Typography } from 'antd';
 
 const { Title } = Typography;
 
+const callApi = ({ username, password, scope, client_id, client_secret }, url) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("grant_type", "password");
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
+    urlencoded.append("scope", scope);
+    urlencoded.append("client_id", client_id);
+    urlencoded.append("client_secret", client_secret);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+    
+    fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+}
 
 const TokenForm = () => {
 
